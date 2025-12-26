@@ -30,7 +30,6 @@ for idx, item in enumerate(samples):
         }
     )
 
-# final_samples = random.sample(test_samples, 3000)
 output_filename = f"alignx_upi.jsonl"
 with open(output_filename, "w") as f:
     for item in test_samples:

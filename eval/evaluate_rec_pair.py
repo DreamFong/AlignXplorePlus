@@ -72,20 +72,6 @@ class PreferenceEvaluator:
         self.llm = None
         self.system_prompt = ""
 
-    # def format_prompt(
-    #     self, prompt: str, response_a: str, response_b: str, persona: str = ""
-    # ) -> str:
-    #     """格式化输入提示"""
-    #     return (
-    #         f"Determine which response the user prefers based on the user's preferences. "
-    #         f"Please output your selection below in a json format by filling in the placeholders in []:"
-    #         f'{{"selection": "[Response A / Response B]"}}\n'
-    #         f"{self.system_prompt}\n"
-    #         f"<Prompt>\n{prompt}\n</Prompt>\n\n"
-    #         f"<Preference>\n{persona}</Preference>\n\n"
-    #         f"<Response A>\n{response_a}\n</Response A>\n\n"
-    #         f"<Response B>\n{response_b}\n</Response B>\n\n"
-    #     )
     def format_prompt(
         self, prompt: str, response_a: str, response_b: str, persona: str = ""
     ) -> str:
@@ -112,11 +98,7 @@ class PreferenceEvaluator:
             # target = item["target"]
             if not item["history"]:
                 continue
-            # mid_position = len(item["history"]) // 3
-            # target = item["history"][2 * mid_position]
-            # profile = item["profile"]
-            # history = item["history"][: 2 * mid_position]
-
+    
             # transferring testing setting
             history = item["history"]
             target = item["target"]
@@ -171,14 +153,6 @@ class PreferenceEvaluator:
                 add_generation_prompt=True,
                 enable_thinking=False,
             )
-            # try:
-            #     length = len(self.tokenizer.encode(text, add_special_tokens=True))
-            #     if length > 15000:
-            #         texts.append(f'Output {{"selection": "{item["answer"]}"}}')
-            #         continue
-            # except Exception as e:
-            #     texts.append(f'Output {{"selection": "{item["answer"]}"}}')
-            #     continue
             texts.append(text)
 
         return texts

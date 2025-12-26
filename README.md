@@ -23,8 +23,47 @@ You can install the required packages by running:
 pip install -r requirements.txt
 ```
 
-## Training
+## SFT Training
 
+You should first  download the dataset from [here](https://huggingface.co/datasets/xxxxx), then generate the tokenized dataset by running the following script.
+
+```bash
+cd sft
+
+python prepare_dataset.py
+```
+
+You can modify line 21 and line 34 to set the path to your own model and tokenized dataset.
+
+```python
+> sft/sft.py
+
+21  model_name_or_path = "Qwen/Qwen3-8B" 
+
+34  dataset = load_from_disk("tokenized_dataset")
+```
+
+Then set the node address and other distrubuted training parameters in the following script.
+
+```bash
+cd sft
+
+bash sft.sh
+```
+
+## RL Training 
+
+You should first download the RL dataset from [here](https://huggingface.co/datasets/xxxxx) and run the following script to generate verl-format dataset.
+
+```bash
+cd verl
+
+# set line 49 data_source_train = "path to jsonl data" to your downloaded dataset path.
+
+python example/data_preprocess/upi_streaming_dataset.py
+```
+
+Then you can set your own path and run the RL training in the following script.
 
 ```bash
 cd verl
@@ -37,7 +76,7 @@ bash examples/grpo_trainer/run_streaming_8p.sh
 ```bash
 cd eval
 
-# You can modify line #21 to the path of your model.
+# You should modify line #21 to the path of your model.
 bash gen_preference.sh
 bash straming_gen_preference.sh
 # You should modify line #21 to the model name of your model.

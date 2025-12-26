@@ -101,7 +101,7 @@ def main():
                 original_history = original_history[-half:]
                 continue
 
-            if length < args.max_model_len / 1.2:
+            if length < args.max_model_len:
                 return original_history
             if len(original_history) == 1:
                 return []

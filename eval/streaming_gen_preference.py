@@ -52,22 +52,15 @@ def main():
         description="Two-stage streaming preference summarization (concise)."
     )
     ap.add_argument("--input", required=True)
-    # ap.add_argument("--output", required=True)
     ap.add_argument("--model", required=True)
     ap.add_argument("--tensor-parallel-size", type=int, default=8)
     ap.add_argument("--max-model-len", type=int, default=16384)
-    # ap.add_argument("--prompt-style", choices=["chat", "dialogue"], default="chat")
-    # ap.add_argument(
-    #     "--extract-mode", choices=["think_tail", "answer_tag"], default="think_tail"
-    # )
     ap.add_argument("--temperature", type=float, default=0.95)
     ap.add_argument("--top-k", type=int, default=20)
     ap.add_argument("--top-p", type=float, default=0.95)
-    # ap.add_argument("--max-tokens", type=int, default=2048)
     args = ap.parse_args()
 
     os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3,4,5,6,7"
-    # datasetname = os.path.basename(args.input).split("_")[0]
 
     # Load dataset
     dataset = []

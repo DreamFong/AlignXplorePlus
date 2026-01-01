@@ -2,7 +2,7 @@
 
 <div align="center">
   <h1 style="font-size: 40px;">AlignXplore+</h1>
-  <p>A Framework for Transferable Personalization with the Textual Interface.</p>
+  <p>Text as a Universal Interface for Personalizing Large Language Models</p>
 
   
   [![arXiv](https://img.shields.io/badge/Paper-arXiv-red.svg)](https://arxiv.org/abs/2505.18071)
@@ -13,15 +13,12 @@
 
 </div>
 
-## 1. Introduction
+## :sparkles: Introduction
 
-AlignXplore Plus is a framework for transferable personalization with the textual interface. It moves to natural language as a universal, model- and task-agnostic interface for user representation. It is a two-stage training framework with supervised fine-tuning and reinforcement learning. More details can be found in the full [paper](https://arxiv.org/abs/xxxx.xxxxx).
+<strong>AlignXplore+</strong> is a framework for transferable personalization in large language models. Building upon AlignXplore, it represents a substantial evolution of the approach by advancing a central idea: natural language can serve as a universal, model- and task-agnostic interface for expressing fine-grained and multi-dimensional user preferences.
 
-## 2. Links
 
-- 📜 [Paper](https://arxiv.org/abs/xxxx.xxxxx)
-- 🤗 [Model](https://huggingface.co/xxxxx)
-- 🤗 [Dataset](https://huggingface.co/datasets/xxxxx)
+
 
 ## Requirments
 

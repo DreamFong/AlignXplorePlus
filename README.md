@@ -23,19 +23,20 @@
 - <strong> Transferable </strong>: Preference summaries inferred by AlignXplore+ demonstrate strong transferability across both tasks (e.g., from response selection to news recommendation) and models (e.g., from GPT-OSS-20B to Qwen2.5-7B-Instruct).
 - <strong> Robust </strong>: Inherited from AlignXplore, AlignXplore+ supports preference reasoning from streaming inputs and maintains stable performance under noisy or imperfect signals, ensuring reliable personalization in realistic, dynamic settings.
 
-
-<table>
+<div align="center">
+<table border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td align="center">
-      <b>Figure 1: Preference Reasoning Architecture</b><br>
-      <img src="figures/Model_Transfer.PNG" width="420">
+    <td align="center" valign="top">
+      <img src="figures/Model_Transfer.PNG" width="420"><br>
+      <small><b>Figure 1.</b> Cross-model transferability of preference summaries</small>
     </td>
-    <td align="center">
-      <b>Figure 2: Streaming Update Pipeline</b><br>
-      <img src="figures/Task_Transfer.PNG" width="420">
+   <td align="center" valign="top">
+      <img src="figures/Task_Transfer.PNG" width="420"><br>
+     <small><b>Figure 2.</b> Cross-domain transfer performance</small>
     </td>
   </tr>
 </table>
+</div>
 
 ## Requirments
 

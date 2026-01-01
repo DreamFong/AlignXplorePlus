@@ -24,17 +24,17 @@
 - <strong> Robust </strong>: Inherited from AlignXplore, AlignXplore+ supports preference reasoning from streaming inputs and maintains stable performance under noisy or imperfect signals, ensuring reliable personalization in realistic, dynamic settings.
 
 
-<table>
-  <tr>
-    <td align="center">
-      <img src="figures/Task_Transfer.png" width="400"/>
-    </td>
-    <td align="center">
-      <img src="figures/Model_Transfer.png" width="400"/>
-    </td>
-  </tr>
-</table>
+<div align="center">
+  <div style="display:inline-block; margin: 0 10px;">
+    <img src="figures/Task_Transfer.PNG" width="45%"/><br/>
+    <b>AlignX Framework</b>
+  </div>
 
+  <div style="display:inline-block; margin: 0 10px;">
+    <img src="figures/Model_Transfer.PNG" width="45%"/><br/>
+    <b>AlignXplore+ Framework</b>
+  </div>
+</div>
 
 ## Requirments
 

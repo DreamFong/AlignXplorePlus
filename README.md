@@ -108,7 +108,6 @@
       <td style="border:1px solid #ddd; padding:4px;"><span style="color:gray;">47.41</span></td>
       <td style="border:1px solid #ddd; padding:4px;"><span style="color:gray;">70.53</span></td>
     </tr>
-
     <!-- Full-history Preference Inference -->
     <tr>
       <td colspan="11" style="border:1px solid #ddd; padding:4px; text-align:center; font-weight:bold; background:#f7f7f7;">
@@ -206,7 +205,6 @@
       <td style="border:1px solid #ddd; padding:4px;"><b>62.42</b></td>
       <td style="border:1px solid #ddd; padding:4px;"><b>75.10</b></td>
     </tr>
-
     <!-- Streaming Preference Inference -->
     <tr>
       <td colspan="11" style="border:1px solid #ddd; padding:4px; text-align:center; font-weight:bold; background:#f7f7f7;">

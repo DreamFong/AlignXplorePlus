@@ -22,41 +22,18 @@ from openai import OpenAI
 
 
 urls = {
-    # "Qwen3-8B-h2011": "http://33.184.124.23:8000/v1",
-    "Qwen3-8B-h2018": "http://33.184.125.114:8000/v1",
-    "Qwen3-8B-h200": "http://33.181.225.31:8000/v1",
+    "Qwen3-8B": "127.0.0.1:8000/v1"
 }
 client = OpenAI(
-    base_url=urls["Qwen3-8B-h200"],
+    base_url=urls["Qwen3-8B"],
     api_key="EMPTY",
 )
 with open(
-    "/ossfs/workspace/nas/yuting/code/PreInf/reinforcement learning/playground/preference.txt",
+    "preference.txt",
     "r",
     encoding="utf-8",
 ) as f:
     system_prompt = f.read()
-
-
-# def extract_preference(response):
-#     pattern = re.compile(r"<answer>(.*?)</answer>", re.DOTALL)
-#     matches = re.findall(pattern, response)
-#     if matches:
-#         result = matches[-1].replace("answer here", "")
-#     else:
-#         result = ""
-
-#     return result
-
-
-# def extract_preference(response):
-#     pattern = re.compile(r"<answer>(.*?)(?:</answer>|$)", re.DOTALL)
-#     matches = re.findall(pattern, response)
-#     if matches:
-#         result = matches[-1].replace("answer here", "").strip()
-#     else:
-#         result = ""
-#     return result
 
 
 def extract_preference(response):
@@ -73,44 +50,6 @@ def format_score(output_string):
     if pattern.match(output_string):
         return True
     return False
-
-
-# def _reward_template(reward_info, response_str):
-#     task = reward_info["task"]
-#     responseA = reward_info["responseA"]
-#     responseB = reward_info["responseB"]
-#     preference = extract_preference(response_str)
-
-#     prop = f'Determine which response the user prefers based on the user’s preferences. Please output your selection below in a json format by filling in the placeholders in []:{{"selection": "[Response A / Response B]"}}\n{system_prompt}\n<Prompt>\n{task}\n</Prompt>\n\n<Preference>\n{preference}</Preference>\n\n<Response A>\n{responseA}\n</Response A>\n\n<Response B>\n{responseB}\n</Response B>\n\n'
-#     messages = [
-#         {"role": "system", "content": "Generate a task-specific response."},
-#         {"role": "user", "content": prop},
-#     ]
-
-#     return messages
-
-
-# def _reward_template_with_answer(reward_info, response_str, ground_truth):
-#     def extract_preference(response):
-#         import re
-
-#         pattern = re.compile(r"<answer>(.*?)</answer>", re.DOTALL)
-#         matches = re.findall(pattern, response)
-#         if matches:
-#             result = matches[-1].replace("answer here", "")
-#         else:
-#             result = ""
-
-#         return result
-
-#     task = reward_info["task"]
-#     responseA = reward_info["responseA"]
-#     responseB = reward_info["responseB"]
-#     preference = extract_preference(response_str)
-
-#     prop = f'Determine which response the user prefers based on the user’s preferences. Please output your selection below in a json format by filling in the placeholders in []:{{"selection": "[Response A / Response B]"}}\n<Prompt>\n{task}\n</Prompt>\n\n<Preference>\n{preference}</Preference>\n\n<Response A>\n{responseA}\n</Response A>\n\n<Response B>\n{responseB}\n</Response B>\n\n{{"selection": "{ground_truth}"}}'
-
-#     return prop
 
 
 def _reward_template_upi(post, preference):
@@ -150,22 +89,6 @@ def generate_final_answer(messages):
     return response.choices[0].message.content, response.choices[0].logprobs.content
 
 
-# def generate_confidence_without_new_token(prompt):
-#     models = client.models.list()
-#     model = models.data[0].id
-#     response = client.completions.create(
-#         model=model,
-#         prompt=prompt,
-#         max_tokens=1,
-#         stream=False,  # 在此模板中，我们等待完整响应
-#         extra_body={
-#             "enable_thinking": 0,
-#             "prompt_logprobs": 1,
-#         },
-#     )
-#     return response.choices[0].prompt_logprobs
-
-
 def extract_final_answers(response: str) -> str:
     try:
         res = json.loads(response)
@@ -192,11 +115,6 @@ def extract_confidence(logprobs_content, answer):
 
     confidence_of_A = None
     confidence_of_B = None
-    # 打印所有 token 的信息，便于调试
-    # print("\n--- 所有生成Token的详细信息 ---")
-    # for item in logprobs_content:
-    #     # breakpoint()
-    #     print(f"Token: '{item.token}', LogProb: {item.logprob:.4f}")
 
     for item in logprobs_content:
         # 注意：Token可能包含前导空格，例如 " A"。使用 strip() 来处理这种情况。
@@ -239,36 +157,6 @@ def extract_confidence_with_answer(prompt_logprobs, answer):
         )
         raise AssertionError("Ground truth token not found in prompt logprobs.")
     return confidence
-
-
-# def compute_score(solution_str, ground_truth=None, data_source=None, extra_info=None):
-#     """The scoring function for AlingXplore.
-
-#     Args:
-#         solution_str: the solution text
-#         ground_truth: the ground truth
-#     """
-#     reward_prompt = _reward_template(extra_info, solution_str)
-#     reward_response, logprobs = generate_final_answer(reward_prompt)
-#     if reward_response is None:
-#         raise ValueError("======== API receives none content. ========")
-#     reward = extract_confidence(logprobs, ground_truth)
-#     return reward
-
-
-# def compute_score(solution_str, ground_truth, data_source=None, extra_info=None):
-#     """The scoring function for AlingXplore.
-
-#     Args:
-#         solution_str: the solution text
-#         ground_truth: the ground truth
-#     """
-#     reward_prompt = _reward_template_with_answer(extra_info, solution_str, ground_truth)
-#     logprobs = generate_confidence_without_new_token(reward_prompt)
-#     if logprobs is None:
-#         raise ValueError("======== API receives none content. ========")
-#     reward = extract_confidence_with_answer(logprobs, ground_truth)
-#     return reward
 
 
 def compute_score(solution_str, ground_truth=None, data_source=None, extra_info=None):

@@ -22,29 +22,18 @@ from openai import OpenAI
 
 
 urls = {
-    "Qwen3-8B-h20": "http://33.184.124.128:8000/v1",
+    "Qwen3-8B": "127.0.0.1:8000/v1"
 }
 client = OpenAI(
-    base_url=urls["Qwen3-8B-h20"],
+    base_url=urls["Qwen3-8B"],
     api_key="EMPTY",
 )
 with open(
-    "/ossfs/workspace/nas/yuting/code/PreInf/reinforcement learning/playground/preference.txt",
+    "preference.txt",
     "r",
     encoding="utf-8",
 ) as f:
     system_prompt = f.read()
-
-
-# def extract_preference(response):
-#     pattern = re.compile(r"<answer>(.*?)</answer>", re.DOTALL)
-#     matches = re.findall(pattern, response)
-#     if matches:
-#         result = matches[-1].replace("answer here", "")
-#     else:
-#         result = ""
-
-#     return result
 
 
 def format_score(output_string):
@@ -139,35 +128,6 @@ def extract_confidence(logprobs_content, answer):
     elif answer == "Item B":
         confidence_of_answer = confidence_of_B or (1 - confidence_of_A)
     return confidence_of_answer
-
-
-# def compute_score(solution_str, ground_truth=None, data_source=None, extra_info=None):
-#     """The scoring function for UPI.
-
-#     Args:
-#         solution_str: the solution text
-#         ground_truth: the ground truth
-#     """
-#     stage_id = extra_info["stage_id"]
-#     # print(stage_id)
-#     if stage_id == 1:
-#         target = extra_info["target1"]
-#     elif stage_id == 2:
-#         target = extra_info["target2"]
-#     else:
-#         raise NotImplementedError("Stage id must be 1 or 2.")
-#     preference = extract_preference(solution_str)
-#     # if preference == "":
-#     #     # breakpoint()
-#     #     # print(solution_str)
-#     #     # print("========No preference extracted.========")
-#     #     return -2.0
-#     reward_prompt, answer = _reward_template_upi(target, preference)
-#     reward_response, logprobs = generate_final_answer(reward_prompt)
-#     if reward_response is None:
-#         raise ValueError("======== API receives none content. ========")
-#     reward = extract_confidence(logprobs, answer)
-#     return reward
 
 
 def compute_score(solution_str, ground_truth=None, data_source=None, extra_info=None):

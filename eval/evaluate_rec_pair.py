@@ -52,7 +52,7 @@ class EvaluationConfig:
         path = self.input_file.replace("/preferences/", "/results/")
         dir_name = os.path.dirname(path)
         file_name = os.path.basename(path)
-        file_name = file_name.replace("_preference_", "_resultv2_")
+        file_name = file_name.replace("_preference_", "_result_")
         self.output_path: str = os.path.join(dir_name, file_name)
         self.rm = os.path.basename(self.model_name)
         self.performance_file: str = os.path.join(

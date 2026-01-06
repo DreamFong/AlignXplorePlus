@@ -81,7 +81,7 @@ class StreamingGRPOTrainer(RayPPOTrainer):
 
     def _build_prompt2_text(self, example_extra_info: dict, filled_text: str):
         """
-        构造阶段二 prompt2：
+        构造阶段二 prompt2:
         - 将 extra_info['prompt2'] 中的 "Not Provided" 替换为 filled_text
         - 返回 str 或 messages(list)；调用者会统一转文本编码
         """
@@ -520,9 +520,6 @@ class StreamingGRPOTrainer(RayPPOTrainer):
                             batch1.batch["token_level_rewards"] = batch1.batch[
                                 "token_level_scores"
                             ]
-                    # metrics["stage1/critic/score"] = torch.mean(batch1.batch[
-                    #     "token_level_scores"
-                    # ]).detach().item()
 
                     # =================================
                     # 阶段二：用被选中回复填充 prompt2，并 rollout（n 次）
@@ -561,16 +558,12 @@ class StreamingGRPOTrainer(RayPPOTrainer):
                         p2_text = self._build_prompt2_text(
                             extra_info_list[i], chosen_text
                         )  # 仅做纯文本替换
-                        # breakpoint()
                         filled_p2_texts.append(str(p2_text))
 
                     # 2) 用 UPI 模板渲染，再编码
                     rendered_p2_texts = [
                         process_dialogue(self.tokenizer, t) for t in filled_p2_texts
                     ]
-                    # breakpoint()
-                    # print("*" * 20)
-                    # print(rendered_p2_texts[0])
 
                     enc2 = self._encode_prompts(rendered_p2_texts)
 
@@ -581,7 +574,6 @@ class StreamingGRPOTrainer(RayPPOTrainer):
                         "data_source",
                         "reward_model",
                         "extra_info",
-                        # "uid",
                         "ability",
                     ]
                     for k in required_nt_keys:
@@ -712,9 +704,6 @@ class StreamingGRPOTrainer(RayPPOTrainer):
                             batch2.batch["token_level_rewards"] = batch2.batch[
                                 "token_level_scores"
                             ]
-                    # metrics["stage2/critic/score"] = torch.mean(batch2.batch[
-                    #     "token_level_scores"
-                    # ]).detach().item()
 
                     # 4) 计算每个原始样本的 mean_reward2（对 index 分组求均值）
                     print("****************Nested Reward****************")
@@ -736,7 +725,7 @@ class StreamingGRPOTrainer(RayPPOTrainer):
                             k: (sum_r2[k] / max(1, cnt_r2[k])) for k in sum_r2.keys()
                         }
 
-                        # —— 仅给“一阶段被选中的那一行”加 λ·mean_r2[index]，其余行加常数 0.5 ——
+                        # —— 仅给“一阶段被选中的那一行”加 λ·mean_r2[index]
                         idx_arr_b1 = batch1.non_tensor_batch["index"]  # [B*n]
                         selected_b1 = batch1.non_tensor_batch[
                             "selected_first_stage"
@@ -761,10 +750,6 @@ class StreamingGRPOTrainer(RayPPOTrainer):
                             else:
                                 add_scalar_vec[i_row] = non_selected_bonus
 
-                        # 均匀分配到响应 token 上（未选中的行将获得均匀的 0.5 增量）
-                        # self._uniform_add_scalar_on_response_tokens(
-                        #     batch1, add_scalar_vec
-                        # )
                         self._add_scalar_on_sequence_position(batch1, add_scalar_vec)  # use this
 
                     # =================================

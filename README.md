@@ -44,7 +44,7 @@
 
 ### Main Results
 
-We present our main results across nine benchmarks. (P-Soups are split into three preference dimensions: expertise, informativeness, and style.) We compare models in three settings: direct sequence modeling, full-history preference inference, and streaming preference inference. All preference inference models (both full-history and streaming) use the Qwen3-8B-non-thinking as the downstream model. Within each setting, **Bold** and <u>Underline</u> mark the best and second-best results among models at the $\sim$ 8B scale. <span style="color:gray;">Gray</span> score highlights models that are outperformed by the best-performing $\sim$ 8B model in the same column, including direct sequence models and larger preference inference models that do not show a performance advantage.
+The following is our main results across nine benchmarks. P-Soups are split into three preference dimensions: expertise, informativeness, and style. We compare models in three settings: **direct sequence modeling**, **full-history preference inference**, and **streaming preference inference**. All preference inference models (both full-history and streaming) use the Qwen3-8B-non-thinking as the downstream model. Within each setting, **Bold** and <u>Underline</u> mark the best and second-best results among models at the $\sim$ 8B scale. <span style="color:gray;">Gray</span> score highlights models that are outperformed by the best-performing $\sim$ 8B model in the same column, including direct sequence models and larger preference inference models that do not show a performance advantage.
 
 <table style="border-collapse:collapse; width:100%; text-align:center;">
   <thead>

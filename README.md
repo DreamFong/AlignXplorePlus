@@ -387,9 +387,13 @@ bash evaluation.sh
 ## ✒️ Citation
 
 ```bibtex
-@article{liu2026text,
-  title={Text as a Universal Interface for Transferable Personalization},
-  author={Yuting Liu, Jian Guan, Jia-Nan Li, Wei Wu, Jiang-Ming Yang, Jianzhe Zhao, Guibing Guo},
-  journal={arXiv preprint arXiv:2601.04963},
-  year={2026}
+@misc{liu2026textuniversalinterfacetransferable,
+      title={Text as a Universal Interface for Transferable Personalization}, 
+      author={Yuting Liu and Jian Guan and Jia-Nan Li and Wei Wu and Jiang-Ming Yang and Jianzhe Zhao and Guibing Guo},
+      year={2026},
+      eprint={2601.04963},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2601.04963}, 
+}
 ```

@@ -12,7 +12,7 @@ torchaudio==2.8.0       # 如不做音频任务可删
 
 transformers==4.57.3
 tokenizers==0.22.1
-datasets==3.1.0          # 如不需要 HF 数据集可删
+datasets          # 如不需要 HF 数据集可删
 accelerate==1.2.0        # 多卡/混合精度/分布式训练
 safetensors==0.4.5
 sentencepiece==0.2.0     # 多数 LLM/翻译模型需要
@@ -24,11 +24,11 @@ xxhash==3.5.0
 
 scipy==1.14.1
 scikit-learn==1.6.0      # 评估指标 / 简单模型
-pandas==2.0.1            # 数据处理，如不需要可删
+pandas>=2.1.0           # 数据处理，如不需要可删
 
 bitsandbytes==0.45.0     # 4/8bit 量化，若环境不支持可删
 xformers==0.0.32.post1   # 注意需与 CUDA/PyTorch 版本匹配
-faiss-gpu==1.7.2         # 向量检索 / RAG 需要时保留
+# faiss-gpu==1.7.2         # 向量检索 / RAG 需要时保留
 
 ray==2.52.1              # 如不做大规模分布式/调度可删
-vllm==0.11.0             # 高性能推理引擎，使用 vLLM 才需要
+# vllm==0.11.0             # 高性能推理引擎，使用 vLLM 才需要
